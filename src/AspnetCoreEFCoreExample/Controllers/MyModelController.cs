@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AspnetCoreEFCoreExample.Models;
@@ -24,7 +25,25 @@ namespace AspnetCoreEFCoreExample.Controllers
         {
             try
             {
-                return Ok(_exampleRepository.GetAll().Select(x => Mapper.Map<MyModelViewModel>(x)));
+
+//string[] fks = context.Db<Product>().Fks.Select(fk => fk.PropertyName).ToArray();
+
+
+                var errors = new List<string>();
+
+                var entityBeeToDelete = _exampleRepository.GetEntityBee(1);
+
+                var associatedEntities = _exampleRepository.GetAssociatedEntities(entityBeeToDelete);
+
+                foreach(var e in associatedEntities)
+                {
+                    errors.Add($"{entityBeeToDelete.GetDisplayName()} has some {e} records associated with it. Please delete those before deleting {entityBeeToDelete.GetDisplayName()}");
+                }
+
+
+
+                //return Ok(_exampleRepository.GetAll().Select(x => Mapper.Map<MyModelViewModel>(x)));
+                return Ok(errors);
             }
             catch (Exception exception)
             {

@@ -11,9 +11,10 @@ using System;
 namespace AspnetCoreEFCoreExample.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20190531080749_EntityBcd")]
+    partial class EntityBcd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,13 +38,9 @@ namespace AspnetCoreEFCoreExample.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("EntityBeeId");
-
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EntityBeeId");
 
                     b.ToTable("EntityCees");
                 });
@@ -53,13 +50,9 @@ namespace AspnetCoreEFCoreExample.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("EntityBeeId");
-
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EntityBeeId");
 
                     b.ToTable("EntityDees");
                 });
@@ -74,20 +67,6 @@ namespace AspnetCoreEFCoreExample.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MyModels");
-                });
-
-            modelBuilder.Entity("AspnetCoreEFCoreExample.Models.EntityCee", b =>
-                {
-                    b.HasOne("AspnetCoreEFCoreExample.Models.EntityBee")
-                        .WithMany("EntityCees")
-                        .HasForeignKey("EntityBeeId");
-                });
-
-            modelBuilder.Entity("AspnetCoreEFCoreExample.Models.EntityDee", b =>
-                {
-                    b.HasOne("AspnetCoreEFCoreExample.Models.EntityBee")
-                        .WithMany("EntityDees")
-                        .HasForeignKey("EntityBeeId");
                 });
 #pragma warning restore 612, 618
         }
